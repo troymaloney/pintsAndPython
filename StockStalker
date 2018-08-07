@@ -1,1 +1,17 @@
+
+'''
 Here is where we stalk stocks........like stalkers.........or stockers...?
+Here's the Gist for the Physicists: the name of the game is to learn how to 
+continueously import large volumes of data then parse and manipulate the 
+data. 
+
+For this project we will start downloading stock data from the internet
+and using that as a basis for our stock simulator. 
+
+We will have a 'bank roll' which we will have as an initial investment.
+the goal here is to try different stock algorythms in hopes to get dirty
+stinking filthy rich!!!
+
+Data sauce: (Troy put Sauce here) 
+
+'''
