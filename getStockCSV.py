@@ -9,11 +9,10 @@
 #You will also need a key from the AlphaVantage website if the key no longer works
 #also refer to AlphaVantage documentation for API call structure
 #https://www.alphavantage.co/documentation/
-
 #
 #This program makes an API call to AlphaAdvantage and retrieves
 #the most up to date info on a specific stock or cryptocurrency.
-#The data is then stored in a file for further modification
+#The data is then stored as a CSV in a file for further modification
 
 import requests
 
