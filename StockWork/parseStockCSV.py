@@ -1,6 +1,6 @@
 #Author: Idris El
 #Last edited by: Idris El
-#Last edited date: 9/6/2018
+#Last edited date: 9/7/2018
 #
 #python 3.7
 #
@@ -11,13 +11,16 @@
 #This function checks to see if the unparsed file exists.
 #if it does, it takes a CSV file and removes the header.
 #The data is then appended to a new file (or a new file is created)
+#The function returns a boolean to let the program know if it handled
+#a an empty file
 
 
 import os
 
-def parse_stock_csv():
-    tempFile = 'ETHstockData.txt'
-    permFile = "ETHparsedStockData.txt"
+def parse_stock_csv(stock):
+    tempFile = stock + 'stockData.txt'
+    permFile = stock + "parsedStockData.txt"
+    killer = False
 
     #Check to see if the file exists, if it does run the rest of the function
     if os.path.isfile(tempFile):
@@ -26,12 +29,14 @@ def parse_stock_csv():
             next(f)
             line = f.readline()
             #If the file is empty or has no data, dont do anything
+            #AND send a boolean
             if line == '':
                 print("Empty file\n")
+                killer = True
 
             #else, parsed data will go into new/appended file    
             else:
-                print(f"Creating or Appending File: {permFile}\n")
+                print("Creating or Appending File: {}".format(permFile))
                 out = open(permFile,"a")
                 while line:
                     out.write(line.strip())
@@ -39,8 +44,8 @@ def parse_stock_csv():
                     
                 out.write("\n")
                 out.close()
-        #Delete the unparsed file because we no longer need it
-        #os.remove(tempFile)
      
     else:
         print("File does Not exist\n")
+        killer = True
+    return killer

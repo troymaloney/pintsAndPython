@@ -1,6 +1,6 @@
 #Author: Idris El
 #Last edited by: Idris El
-#Last edited date: 9/5/2018
+#Last edited date: 9/7/2018
 #
 #python 3.7
 #
@@ -18,15 +18,16 @@
 
 import requests
 
-def get_stock_CSV():
+def get_stock_CSV(stock):
     #API key from alphaVantage
     aKey = 'N4CIZVQRUR484FTE'
-    file = "ETHstockData.txt"
+    file = stock + "stockData.txt"
 
 
     #Passing parameters to construct proper URL
     #This specific call retrieves the most recent quote for a stock
-    payload = {'function': 'GLOBAL_QUOTE', 'symbol':'ETH', 'apikey':'aKey', 'datatype':'csv'}
+    #payload = {'function': 'GLOBAL_QUOTE', 'symbol':'ETH', 'apikey':'aKey', 'datatype':'csv'}
+    payload = {'function': 'GLOBAL_QUOTE', 'symbol': stock,'interval': '5min', 'apikey':'aKey', 'datatype':'csv'}
     r = requests.get('https://www.alphavantage.co/query',params=payload)
 
     #If successful, save data to file that either exists or will be created
@@ -34,7 +35,7 @@ def get_stock_CSV():
         out = open(file,"w")
         out.write(r.text)
         out.close()
-        print(f"Created File: {file}\n")
+        print("Created File: {}".format(file))
 
     #If not successful, print error code
     else:
@@ -51,5 +52,6 @@ def get_stock_CSV():
 #Daily: 'TIME_SERIES_DAILY'
 #Weekly: 'TIME_SERIES_WEEKLY'
 #Monthly: 'TIME_SERIES_MONTHLY'
+#Global Quote: 'GLOBAL_QUOTE'
 
 
