@@ -1,10 +1,11 @@
 from getStockCSV import get_stock_CSV
 from parseStockCSV import parse_stock_csv
+from Plot import plot_stocks
 
 import time
 
 def main():
-    maxLoop = 10
+    maxLoop = 3 #390 time in a single day
     loopCount=0
     sleepCount=0
     now = time.time()   # get the time
@@ -31,11 +32,12 @@ def main():
     print("Total times looped: {} times.".format(loopCount))
     print("Total times sleep called: {} times.".format(sleepCount))
 
+    print("")
+    Prices = plot_stocks(stock) #calls plotting function
+    
+    
 #IF __name__ not needed for python 3 and up, just a hold over XP
 if __name__ == "__main__":      # I have no idea
     main()
 
 
-
-
-                 
