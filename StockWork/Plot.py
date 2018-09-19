@@ -6,6 +6,7 @@
 #  open file for reading
 #  read data 
 #  format data from string to float
+#  invert the data to most recent on top(?) 
 #  plot datas
 ##############################################
 
@@ -13,9 +14,10 @@ import csv
 from matplotlib import pyplot as plt
 
 def plot_stocks(stock):
-    
+     file = stock + "parsedStockData.txt"
 
-     with open ('CRONparsedStockData.txt') as csvfile:
+
+     with open (file) as csvfile:
           readcsv =csv.reader(csvfile,delimiter=',')
           Dates=[]
           Prices=[]
@@ -31,13 +33,11 @@ def plot_stocks(stock):
 		
 		        #appends Price and date to the lists
                Dates.append(Date)
-               Prices.append(Price)
-
-		     
-               #for loop control:
-		     
+               Prices.append(Price)		     
+               
+               #for loop control:		     
                n=n+1
-               #print (n)
+               print (n)
                
                if n >390:
                     break
