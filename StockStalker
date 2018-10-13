@@ -9,8 +9,8 @@ For this project we will start downloading stock data from the internet
 and using that as a basis for our stock simulator. 
 
 We will have a 'bank roll' which we will have as an initial investment.
-the goal here is to try different stock algorythms in hopes to get dirty
-stinking filthy rich!!!
+the goal here is to try different stock trading algorythms in hopes to try
+finding an algorythm to maximize profit and minimize losses of our fake bankroll.
 
 Data sauce: 
             Alpha Vantage API Key: 
