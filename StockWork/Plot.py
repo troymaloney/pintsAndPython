@@ -1,7 +1,13 @@
 ##############################################
+#Original Author: Tony Sanchez Sep 2018
 #Description:
 # This file will plot data 
-# 
+#
+#Dependancies: 
+#    Python3.7
+#    Matplotlib
+#    
+#
 ##Goals#
 #  open file for reading
 #  read data 
@@ -11,7 +17,10 @@
 ##############################################
 
 import csv 
-from matplotlib import pyplot as plt
+import datetime
+import matplotlib.pyplot as plt
+import matplotlib.dates as mdates
+
 
 def plot_stocks(stock):
      file = stock + "parsedStockData.txt"
@@ -26,27 +35,34 @@ def plot_stocks(stock):
           #for loop starts here
           for row in readcsv:
                #gets the date from Row 7 and price from Row 5
-               PriceStr = row[7]
+               PriceStr = row[4]
                Price = float(PriceStr)
-               DateStr = row[5]
-               Date = float(DateStr)
+               DateStr = row[10]
+               #Date = float(DateStr)
 		
 		        #appends Price and date to the lists
-               Dates.append(Date)
+               Dates.append(DateStr)
                Prices.append(Price)		     
                
                #for loop control:		     
                n=n+1
-               print (n)
+               #print (n)
                
                if n >390:
                     break
 
      #print (Dates)
      #print (Prices)
-
-     RoughGriaffe = plt.plot(Prices)
-     #plt.show()
      
+     plt.plot([],[])
+     plt.scatter(Dates, Prices, s =50, c = 'red')
+     # beautify the x-labels
+     plt.gcf().autofmt_xdate()
+     ax.xaxis_date()
+     myFmt = mdates.DateFormatter('%m-%d-%H:%M:%S') #sets formatting
+     plt.gca().xaxis.set_major_formatter(myFmt)   #uses formatting
+     
+     
+     plt.show()
      return(Prices)
      
