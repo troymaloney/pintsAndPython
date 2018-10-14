@@ -1,5 +1,7 @@
 ##############################################
 #Original Author: Tony Sanchez Sep 2018
+#last edited by: Tony Sanchez
+#last edit Date: 10-14-2018
 #Description:
 # This file will plot data 
 #
@@ -48,7 +50,7 @@ def plot_stocks(stock):
                n=n+1
                #print (n)
                
-               if n >390:
+               if n >390: # GUI controlled or = to maxloop in main.py
                     break
 
      #print (Dates)
@@ -58,10 +60,7 @@ def plot_stocks(stock):
      plt.scatter(Dates, Prices, s =50, c = 'red')
      # beautify the x-labels
      plt.gcf().autofmt_xdate()
-     ax.xaxis_date()
-     myFmt = mdates.DateFormatter('%m-%d-%H:%M:%S') #sets formatting
-     plt.gca().xaxis.set_major_formatter(myFmt)   #uses formatting
-     
+          
      
      plt.show()
      return(Prices)
