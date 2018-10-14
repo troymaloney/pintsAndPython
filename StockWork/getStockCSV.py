@@ -1,6 +1,6 @@
 #Author: Idris El
-#Last edited by: Idris El
-#Last edited date: 9/7/2018
+#Last edited by: Tony Sanchez
+#Last edited date: 10/12/2018
 #
 #python 3.7
 #
@@ -17,6 +17,8 @@
 #The data is then stored in a CSV file for further modification
 
 import requests
+import datetime
+
 
 def get_stock_CSV(stock):
     #API key from alphaVantage
@@ -33,7 +35,11 @@ def get_stock_CSV(stock):
     #If successful, save data to file that either exists or will be created
     if r.status_code == 200:
         out = open(file,"w")
+        DateTimeStr = str(datetime.datetime.utcnow().strftime("%Y-%m-%d-%H:%M:%S"))
         out.write(r.text)
+        out.write(',')
+        out.write(DateTimeStr)
+        
         out.close()
         print("Created File: {}".format(file))
 

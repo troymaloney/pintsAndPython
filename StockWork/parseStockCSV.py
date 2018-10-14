@@ -1,6 +1,6 @@
 #Author: Idris El
-#Last edited by: Idris El
-#Last edited date: 9/7/2018
+#Last edited by: Tony Sanchez
+#Last edited date: 10/12/2018
 #
 #python 3.7
 #

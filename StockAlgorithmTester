@@ -1,0 +1,22 @@
+
+'''
+
+Here's the Gist for all the Physicists and non physicists: the name of the game is to learn how to 
+continueously import large volumes of data then parse and manipulate the 
+data. 
+
+For this project we will start downloading stock data from the internet
+and using that as a basis for our stock simulator. 
+
+We will have a 'bank roll' which we will have as an initial investment.
+the goal here is to try different stock trading algorythms in hopes to try
+to maximize profits and minimize losses. 
+
+Data sauce: 
+            Alpha Vantage API Key: 
+            N4CIZVQRUR484FTE
+            3BP6E14NVQ0BOEOV
+
+'''
+
+Codeshare.io consider it for a realtime codesharing option =3
