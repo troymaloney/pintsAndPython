@@ -1,7 +1,7 @@
 ##############################################
 #Original Author: Tony Sanchez Sep 2018
 #last edited by: Tony Sanchez
-#last edit Date: 10-14-2018
+#last edit Date: 10-16-2018
 #Description:
 # This file will plot data 
 #
@@ -19,7 +19,7 @@
 ##############################################
 
 import csv 
-import datetime
+from datetime import datetime
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 
@@ -40,11 +40,11 @@ def plot_stocks(stock):
                PriceStr = row[4]
                Price = float(PriceStr)
                DateStr = row[10]
-               #Date = float(DateStr)
 		
-		        #appends Price and date to the lists
-               Dates.append(DateStr)
+               #appends Price and date to the lists
+               Dates.append(datetime.strptime(DateStr,'%Y-%m-%d-%H:%M:%S'))
                Prices.append(Price)		     
+               #print (Date)
                
                #for loop control:		     
                n=n+1
@@ -60,6 +60,10 @@ def plot_stocks(stock):
      plt.scatter(Dates, Prices, s =50, c = 'red')
      # beautify the x-labels
      plt.gcf().autofmt_xdate()
+     myFmt = mdates.DateFormatter('%Y-%m-%d-%H:%M:%S')
+     plt.gca().xaxis.set_major_formatter(myFmt)
+     
+
           
      
      plt.show()
