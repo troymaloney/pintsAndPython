@@ -1,6 +1,6 @@
 #Author: Idris El
 #Last edited by: Tony Sanchez
-#Last edited date: 10/12/2018
+#Last edited date: 10/16/2018
 #
 #python 3.7
 #
@@ -16,10 +16,10 @@ def main():
     maxLoop = 5 #390 time in a single day 
     loopCount=0
     sleepCount=0
+
+    stock = input("What stock would you like information about: ").upper()
+    
     now = time.time()   # get the time
-
-    stock = input("What stock would you like information about: ")
-
     while loopCount < maxLoop:
         elapsed = time.time()       #sets elapsed to current time
         get_stock_CSV(stock)        #API funtion call
@@ -35,7 +35,7 @@ def main():
             time.sleep(60.-elapsed)
              
     now = time.time()- now          #sets now to the main.py run time
-    print("Total function run time: {:.43f} seconds".format(elapsed))
+    print("Total function run time: {:.3f} seconds".format(elapsed))
     print("Program run time total: {:.3f} seconds".format(now))
     print("Total times looped: {} times.".format(loopCount))
     print("Total times sleep called: {} times.".format(sleepCount))
@@ -45,7 +45,7 @@ def main():
     
     
 #IF __name__ not needed for python 3 and up, just a hold over XP
-if __name__ == "__main__":      # I have no idea
+if __name__ == "__main__":   
     main()
 
 
