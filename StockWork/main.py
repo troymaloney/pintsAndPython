@@ -13,7 +13,7 @@ import time
 
 def main():
     
-    maxLoop = 5 #390 time in a single day 
+    maxLoop = 390 #390 time in a single day 
     loopCount=0
     sleepCount=0
 
