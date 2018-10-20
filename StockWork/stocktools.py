@@ -4,6 +4,9 @@ import os
 import glob
 
 class StockDataset:
+    """
+    Metadata is the column headers stored in *stockData.txt file
+    """
 
     def __init__(self, data_dir, verbose=True):
 
@@ -15,23 +18,24 @@ class StockDataset:
         if verbose:
             print("Reading in data from "+self.data_dir)
 
-        metadata_fname = glob.glob(data_dir+'*stockData.txt')[0]
+        headers_fname = glob.glob(data_dir+'*stockData.txt')[0]
         dataTable_fname = glob.glob(data_dir+'*parsedStockData.txt')[0]
         
         if verbose:
-            print("Metadata file is called "+metadata_fname)
+            print("Headers file is called "+headers_fname)
             print("Data table file is called "+dataTable_fname)
         
-        self.metadata = []
+#        self.headers = []
         
-        with open(metadata_fname, 'r') as md_file:
-            md_reader = csv.reader(md_file, delimiter=',')
+        with open(headers_fname, 'r') as headers_file:
+            headers_reader = csv.reader(headers_file, delimiter=',')
             
-            for row in md_reader:
-                self.metadata.append(row)
+            self.headers = next(headers_reader)
+            
+        
 
 
 ## FOR TESTING -- COMMENT or DELETE in release ##
 cron_dataset = StockDataset('/home/pi/Documents/pintsAndPython/StockWork/sample_data')
-for row in cron_dataset.metadata:
-    print(row)
+
+print(cron_dataset.headers)
