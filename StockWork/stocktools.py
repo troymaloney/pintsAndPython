@@ -2,6 +2,7 @@
 import csv
 import os
 import glob
+import numpy as np
 
 class StockDataset:
     """
@@ -18,40 +19,42 @@ class StockDataset:
 
     
     SYNTAX:
-    
     stock = StockDataset("/path/to/file") 
-    Set 'verbose' option to True to print reccord of actions to terminal
+    Set 'verbose' option to True to print record of actions to terminal
     
     
     ATTRIBUTES:
-    
     data_dir = string containing database path
-    
     headers = list of the titles of columns contained in data file
-    
+    dataTable_full = the entire data table in a numpy array
+    prices = all prices in a 1-d numpy array (list)
+    volumes = all volumes in a 1-d numpy array
+    changes = all changes in a 1-d numpy array
+    calltimes = the date and time of all API calls in string form
+    change_percents = all change percentages in a 1-d numpy array
     
     METHODS:
-    
     none yet :(
     Let me know if you have any ideas!
     
-    
     PLANNED ATTRIBUTES:
-    
-    prices, volumes, changes, change_percents, and calltimes will give lists
-    (or numpy arrays) containing data from their respective columns
-    
+    symbol, open, high, low, previousClose -- since these are the same
+        in each data run (as far as I know, correct me if I'm wrong),
+        calling these attributes should return a single number or string. 
+        
     
     PLANNED FEATURES:
-    
     1. The option to read in data that was taken within a range of dates
         instead of just reading in an entire directory
     2. Read in dirs that contain more than one data text file
-    
-    
+    3. A safeguard against data from more than one different stock being 
+        read in using symbol tag on each API call
+   *4. A better way to call/format the date and time than a big list of
+        strings that the user has to manipulate themselves
+
     """
 
-    def __init__(self, data_dir, verbose=True): #verbose False by default?
+    def __init__(self, data_dir, verbose=True): #verbose False by default in release
 
         if data_dir[-1] != os.sep:
             data_dir += os.sep
@@ -72,11 +75,31 @@ class StockDataset:
             headers_reader = csv.reader(headers_file, delimiter=',')
             
             self.headers = next(headers_reader)
+        
+        dataTable_full = []
+        
+        with open(dataTable_fname, 'r') as data_file:
+            data_reader = csv.reader(data_file, delimiter=',')
+            for row in data_reader:
+                dataTable_full.append(row)
+        
+        self.dataTable_full = np.array(dataTable_full)
             
+        self.prices = self.dataTable_full[:,4].astype(np.float)
+        self.volumes = self.dataTable_full[:,5].astype(np.float)
+        self.changes = self.dataTable_full[:,8].astype(np.float)
+        self.calltimes = self.dataTable_full[:,10]
+        
+        
+        change_percents = self.dataTable_full[:,9]
+        self.change_percents = np.array([float(p.strip('%') ) for p in change_percents] )
         
 
 
 ## FOR TESTING -- COMMENT or DELETE in release ##
 #cron_dataset = StockDataset('/home/pi/Documents/pintsAndPython/StockWork/sample_data')
 
-#print(cron_dataset.headers)
+#print(cron_dataset.dataTable_full)
+
+
+
