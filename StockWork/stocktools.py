@@ -73,22 +73,31 @@ class StockDataset:
         with open(dataFile, 'r') as f:
             reader = csv.reader(f, delimiter=',')
             
-            self.headers = next(reader)
+            headers = next(reader)
             
             dataTable_full = []
             for row in reader:
                 dataTable_full.append(row)
                 
-        self.dataTable_full = np.array(dataTable_full) # Set attribute to return full datatable
-            
-        self.prices = self.dataTable_full[:,4].astype(np.float) # attr to return list of prices
-        self.volumes = self.dataTable_full[:,5].astype(np.float)# attr to return list of volumes
-        self.changes = self.dataTable_full[:,8].astype(np.float)# attr to return list of changes
-        self.calltimes = self.dataTable_full[:,10]# attr to return list of calltimes
+        self.dataTable_full = np.array(dataTable_full)
+        self.headers = headers
         
+        self.prices = dataTable_full[:,headers.index('price')].astype(np.float)
+        self.volumes = dataTable_full[:,headers.index('volume')].astype(np.float)
+        self.changes = dataTable_full[:,headers.index('change')].astype(np.float)
+        self.calltimes = dataTable_full[:,headers.index('callTime')]
         
-        change_percents = self.dataTable_full[:,9]
+        change_percents = dataTable_full[:,index('changePercent')]
         self.change_percents = np.array([float(p.strip('%') ) for p in change_percents] )
+            
+#        self.prices = self.dataTable_full[:,4].astype(np.float) # attr to return list of prices
+#        self.volumes = self.dataTable_full[:,5].astype(np.float)# attr to return list of volumes
+#        self.changes = self.dataTable_full[:,8].astype(np.float)# attr to return list of changes
+#        self.calltimes = self.dataTable_full[:,10]# attr to return list of calltimes
+#        
+#        
+#        change_percents = self.dataTable_full[:,9]
+#        self.change_percents = np.array([float(p.strip('%') ) for p in change_percents] )
         # strip off percent signs and set attr to return list of percent changes
 
 
