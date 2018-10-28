@@ -1,6 +1,6 @@
 #Author: Idris El
-#Last edited by: Tony Sanchez
-#Last edited date: 10/16/2018
+#Last edited by: Troy Maloney
+#Last edited date: 10/28/2018
 #
 #python 3.7
 #
@@ -10,10 +10,11 @@ from parseStockCSV import parse_stock_csv
 #from Plot import plot_stocks
 
 import time
+import os
 
 def main():
     
-    maxLoop = 1 #390 time in a single day 
+    maxLoop = 5 #390 time in a single day 
     loopCount=0
     sleepCount=0
 
@@ -35,6 +36,8 @@ def main():
             time.sleep(60.-elapsed)
              
     now = time.time()- now          #sets now to the main.py run time
+    os.remove(stock+"stockData.txt") # deletes temp file
+
     print("Total function run time: {:.3f} seconds".format(elapsed))
     print("Program run time total: {:.3f} seconds".format(now))
     print("Total times looped: {} times.".format(loopCount))
