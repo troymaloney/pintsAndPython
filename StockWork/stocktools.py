@@ -56,44 +56,46 @@ class StockDataset:
 
     def __init__(self, data_dir, verbose=True): #verbose False by default in release
 
-        if data_dir[-1] != os.sep:
-            data_dir += os.sep
+        if data_dir[-1] != os.sep: # make sure separator character is appended to end of
+            data_dir += os.sep     # of directroy string 
     
-        self.data_dir = data_dir
+        self.data_dir = data_dir # set attribute to return name of directory
         
         if verbose:
             print("Reading in data from "+self.data_dir)
 
-        headers_fname = glob.glob(data_dir+'*stockData.txt')[0]
-        dataTable_fname = glob.glob(data_dir+'*parsedStockData.txt')[0]
+        headers_fname = glob.glob(data_dir+'*stockData.txt')[0] # get name of file where headers are stored
+        dataTable_fname = glob.glob(data_dir+'*parsedStockData.txt')[0]# Get name of file where datatable is stored
         
         if verbose:
             print("Headers file is called "+headers_fname)
             print("Data table file is called "+dataTable_fname)
         
-        with open(headers_fname, 'r') as headers_file:
+        with open(headers_fname, 'r') as headers_file: 
+        # read in "headers" file and sets attribute to return list of data table headers
             headers_reader = csv.reader(headers_file, delimiter=',')
             
-            self.headers = next(headers_reader)
+            self.headers = next(headers_reader) # only takes first line
         
         dataTable_full = []
         
         with open(dataTable_fname, 'r') as data_file:
+        # read in data table file and place in dataTable_full list
             data_reader = csv.reader(data_file, delimiter=',')
             for row in data_reader:
                 dataTable_full.append(row)
         
-        self.dataTable_full = np.array(dataTable_full)
+        self.dataTable_full = np.array(dataTable_full) # Set attribute to return full datatable
             
-        self.prices = self.dataTable_full[:,4].astype(np.float)
-        self.volumes = self.dataTable_full[:,5].astype(np.float)
-        self.changes = self.dataTable_full[:,8].astype(np.float)
-        self.calltimes = self.dataTable_full[:,10]
+        self.prices = self.dataTable_full[:,4].astype(np.float) # attr to return list of prices
+        self.volumes = self.dataTable_full[:,5].astype(np.float)# attr to return list of volumes
+        self.changes = self.dataTable_full[:,8].astype(np.float)# attr to return list of changes
+        self.calltimes = self.dataTable_full[:,10]# attr to return list of calltimes
         
         
         change_percents = self.dataTable_full[:,9]
         self.change_percents = np.array([float(p.strip('%') ) for p in change_percents] )
-        
+        # strip off percent signs and set attr to return list of percent changes
 
 
 ## FOR TESTING -- COMMENT or DELETE in release ##
