@@ -63,28 +63,22 @@ class StockDataset:
         
         if verbose:
             print("Reading in data from "+self.data_dir)
-
-        headers_fname = glob.glob(data_dir+'*stockData.txt')[0] # get name of file where headers are stored
-        dataTable_fname = glob.glob(data_dir+'*parsedStockData.txt')[0]# Get name of file where datatable is stored
+        
+        # Grab only the first stock data file in the directory for now
+        dataFile = glob.glob(data_dir+'*parsedStockData.txt')[0]
         
         if verbose:
-            print("Headers file is called "+headers_fname)
-            print("Data table file is called "+dataTable_fname)
+            print("Data table file is called "+dataFile)
         
-        with open(headers_fname, 'r') as headers_file: 
-        # read in "headers" file and sets attribute to return list of data table headers
-            headers_reader = csv.reader(headers_file, delimiter=',')
+        with open(dataFile, 'r') as f:
+            reader = csv.reader(f, delimiter=',')
             
-            self.headers = next(headers_reader) # only takes first line
-        
-        dataTable_full = []
-        
-        with open(dataTable_fname, 'r') as data_file:
-        # read in data table file and place in dataTable_full list
-            data_reader = csv.reader(data_file, delimiter=',')
-            for row in data_reader:
+            self.headers = next(reader)
+            
+            dataTable_full = []
+            for row in reader:
                 dataTable_full.append(row)
-        
+                
         self.dataTable_full = np.array(dataTable_full) # Set attribute to return full datatable
             
         self.prices = self.dataTable_full[:,4].astype(np.float) # attr to return list of prices
@@ -99,9 +93,14 @@ class StockDataset:
 
 
 ## FOR TESTING -- COMMENT or DELETE in release ##
-#cron_dataset = StockDataset('/home/pi/Documents/pintsAndPython/StockWork/sample_data')
+#cron = StockDataset('/home/pi/Documents/pintsAndPython/StockWork')
 
-#print(cron_dataset.dataTable_full)
-
+#print(cron.headers)
+#print(cron.dataTable_full)
+#print(cron.prices)
+#print(cron.volumes)
+#print(cron.changes)
+#print(cron.calltimes)
+#print(cron.change_percents)
 
 
