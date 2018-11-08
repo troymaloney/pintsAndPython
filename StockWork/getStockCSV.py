@@ -1,6 +1,6 @@
 #Author: Idris El
-#Last edited by: Tony Sanchez
-#Last edited date: 10/12/2018
+#Last edited by: Troy Maloney
+#Last edited date: 10/28/2018
 #
 #python 3.7
 #
@@ -31,15 +31,20 @@ def get_stock_CSV(stock):
     #payload = {'function': 'GLOBAL_QUOTE', 'symbol':'ETH', 'apikey':'aKey', 'datatype':'csv'}
     payload = {'function': 'GLOBAL_QUOTE', 'symbol': stock,'interval': '5min', 'apikey':'aKey', 'datatype':'csv'}
     r = requests.get('https://www.alphavantage.co/query',params=payload)
+    DateTimeStr = str(datetime.datetime.utcnow().strftime("%Y-%m-%d-%H:%M:%S"))
 
     #If successful, save data to file that either exists or will be created
     if r.status_code == 200:
-        out = open(file,"w")
-        DateTimeStr = str(datetime.datetime.utcnow().strftime("%Y-%m-%d-%H:%M:%S"))
-        out.write(r.text)
-        out.write(',')
-        out.write(DateTimeStr)
         
+        data = r.text.split()
+        data[0] += ',callTime' # add header
+        data[1] += ','+DateTimeStr+'\r\n' # add calltime data and end-of-line chars
+        to_write = '\r\n'.join(data) # make into single string
+        
+        out = open(file,"w") # Write to file
+        out.write(to_write)        
+        
+                
         out.close()
         print("Created File: {}".format(file))
 

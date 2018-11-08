@@ -25,8 +25,7 @@ def parse_stock_csv(stock):
     #Check to see if the file exists, if it does run the rest of the function
     if os.path.isfile(tempFile):
         with open(tempFile) as f:
-            #Skip the header line
-            next(f)
+            headers = f.readline()
             line = f.readline()
             #If the file is empty or has no data, dont do anything
             #AND send a boolean
@@ -38,9 +37,15 @@ def parse_stock_csv(stock):
             else:
                 print("Creating or Appending File: {}".format(permFile))
                 out = open(permFile,"a")
-                while line:
-                    out.write(line.strip())
-                    line = f.readline()
+                if os.stat(permFile).st_size > 0:
+                    while line:
+                        out.write(line.strip())
+                        line = f.readline()
+                else:# write header and then write first line if file is empty
+                    while line:
+                        out.write(headers.strip()+'\n')
+                        out.write(line.strip() )
+                        line = f.readline()
                     
                 out.write("\n")
                 out.close()

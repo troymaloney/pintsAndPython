@@ -1,0 +1,3 @@
+symbol,open,high,low,price,volume,latestDay,previousClose,change,changePercent
+CRON,10.7500,11.2000,10.1200,10.6500,18879202,2018-10-17,11.5200,-0.8700,-7.5521%
+,2018-10-17-21:59:56

@@ -1,15 +1,16 @@
 #Author: Idris El
-#Last edited by: Tony Sanchez
-#Last edited date: 10/16/2018
+#Last edited by: Troy Maloney
+#Last edited date: 10/28/2018
 #
 #python 3.7
 #
 
 from getStockCSV import get_stock_CSV
 from parseStockCSV import parse_stock_csv
-from Plot import plot_stocks
+#from Plot import plot_stocks
 
 import time
+import os
 
 def main():
     
@@ -35,13 +36,15 @@ def main():
             time.sleep(60.-elapsed)
              
     now = time.time()- now          #sets now to the main.py run time
+    os.remove(stock+"stockData.txt") # deletes temp file
+
     print("Total function run time: {:.3f} seconds".format(elapsed))
     print("Program run time total: {:.3f} seconds".format(now))
     print("Total times looped: {} times.".format(loopCount))
     print("Total times sleep called: {} times.".format(sleepCount))
 
     print("")
-    Prices = plot_stocks(stock)
+#    Prices = plot_stocks(stock)
     
     
 #IF __name__ not needed for python 3 and up, just a hold over XP
