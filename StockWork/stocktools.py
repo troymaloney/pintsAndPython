@@ -1,4 +1,9 @@
 
+#Author: Troy Maloney
+#Last edited by: Troy Maloney
+#Last edited on: 11-17-18
+
+
 import csv
 import os
 import glob
@@ -12,10 +17,8 @@ class StockDataset:
     columns. This could help make our plotting, algorithm, and GUI code
     a little less cumbersome. 
     
-    !!! The directory that you pass into StockDataset must contain both
-        *stockData.txt and *parsedStockData.txt
-    !!! The directory can only contain ONE *stockData and 
-        ONE *parsedStockData file for now. 
+    !!! Only a directory with ONE data text file can be passed into this 
+        class right now
 
     
     SYNTAX:
@@ -32,13 +35,14 @@ class StockDataset:
     changes = all changes in a 1-d numpy array
     calltimes = the date and time of all API calls in string form
     change_percents = all change percentages in a 1-d numpy array
+    symbol = returns stock symbol
     
     METHODS:
     none yet :(
     Let me know if you have any ideas!
     
     PLANNED ATTRIBUTES:
-    symbol, open, high, low, previousClose -- since these are the same
+    open, high, low, previousClose -- since these are the same
         in each data run (as far as I know, correct me if I'm wrong),
         calling these attributes should return a single number or string. 
         
@@ -49,8 +53,6 @@ class StockDataset:
     2. Read in dirs that contain more than one data text file
     3. A safeguard against data from more than one different stock being 
         read in using symbol tag on each API call
-   *4. A better way to call/format the date and time than a big list of
-        strings that the user has to manipulate themselves
 
     """
 
@@ -81,6 +83,7 @@ class StockDataset:
                 
         self.dataTable_full = np.array(dataTable_full)
         self.headers = headers
+        self.symbol = dataTable_full[0][0]
         
         self.prices = self.dataTable_full[:,headers.index('price')].astype(np.float)
         self.volumes = self.dataTable_full[:,headers.index('volume')].astype(np.float)
@@ -92,13 +95,9 @@ class StockDataset:
 
 ## FOR TESTING -- COMMENT or DELETE in release ##
 #cron = StockDataset('/home/pi/Documents/pintsAndPython/StockWork')
-
 #print(cron.headers)
 #print(cron.dataTable_full)
-#print(cron.prices)
-#print(cron.volumes)
-#print(cron.changes)
-#print(cron.calltimes)
-#print(cron.change_percents)
+
+#print(cron.symbol)
 
 
