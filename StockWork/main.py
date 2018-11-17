@@ -14,11 +14,11 @@ import os
 
 def main():
     
-    maxLoop = 5 #390 time in a single day 
     loopCount=0
     sleepCount=0
 
-    stock = input("What stock would you like information about: ").upper()
+    stock = input("What stock would you like information about? : ").upper()
+    maxLoop = int(input("For how many minutes should I run?\n(enter 390 for a full day) : ") )
     
     now = time.time()   # get the time
     while loopCount < maxLoop:
