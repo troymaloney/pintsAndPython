@@ -3,6 +3,7 @@ import random
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 import math
+from randWalk import randWalk
 
 #############################################################################
 #Author: Tony Sanchez
@@ -36,7 +37,11 @@ for x in range(1000):
      date = (datetime.datetime.utcnow() + datetime.timedelta(seconds =x)).strftime("%H:%M:%S")
      
      #your test signal function goes here:
-     price = x**(2)#+20*x*math.sin(x/math.pi)   
+     price = x**(2)#+20*x*math.sin(x/math.pi)
+     
+     # for random walk:
+#     price = randWalk(x, Prices)
+
           
      Dates.append(date)
      Prices.append(price) 
@@ -51,6 +56,8 @@ plt.scatter(Dates,Prices,s=8)
 # beautify the x-labels
 plt.gcf().autofmt_xdate()
 
+# For Troy's Raspberry Pi
+#plt.plot(Prices)
 
 #print (Dates)
 #print (Prices)
