@@ -39,7 +39,7 @@ for x in range(1000):
      #your test signal function goes here:
      price = x**(2)#+20*x*math.sin(x/math.pi)
      
-     # for random walk:
+     # for random walk: (comment out test function above first)
 #     price = randWalk(x, Prices)
 
           
