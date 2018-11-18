@@ -27,6 +27,8 @@ from randWalk import randWalk
 file ='GenData.txt'
 out = open(file,"w")
 
+out.write("symbol,price,callTime\n") # write headers so that StockDataset can find the data
+
 #makes arrays
 Dates=[]
 Prices=[]
@@ -37,30 +39,32 @@ for x in range(1000):
      date = (datetime.datetime.utcnow() + datetime.timedelta(seconds =x)).strftime("%H:%M:%S")
      
      #your test signal function goes here:
-     price = x**(2)#+20*x*math.sin(x/math.pi)
+#     price = x**(2)#+20*x*math.sin(x/math.pi)
      
      # for random walk: (comment out test function above first)
-#     price = randWalk(x, Prices)
+     price = randWalk(x, Prices)
 
           
      Dates.append(date)
      Prices.append(price) 
+
+     out.write('FAKE,'+str(price)+','+str(date)+'\n')
      
-     out.write("symbl,open,high,low, ")
-     out.write(str(price)+", vol,Day,prevCls,diff,diff%, ")
-     out.write(str(date)+", ")
-     out.write(str(x)+ "\n") # for trace tables
-# plot
-plt.plot([],[])
-plt.scatter(Dates,Prices,s=8)
-# beautify the x-labels
-plt.gcf().autofmt_xdate()
+#     out.write("symbl,open,high,low, ")
+#     out.write(str(price)+", vol,Day,prevCls,diff,diff%, ")
+#     out.write(str(date)+", ")
+#     out.write(str(x)+ "\n") # for trace tables
+## plot
+#plt.plot([],[])
+#plt.scatter(Dates,Prices,s=8)
+## beautify the x-labels
+#plt.gcf().autofmt_xdate()
 
-# For Troy's Raspberry Pi
-#plt.plot(Prices)
+## For Troy's Raspberry Pi
+plt.plot(Prices)
 
-#print (Dates)
-#print (Prices)
+##print (Dates)
+##print (Prices)
 
 plt.show()
 out.close()
