@@ -7,18 +7,18 @@ from randWalk import randWalk
 
 #############################################################################
 #Author: Tony Sanchez
-#Last edited: 10-14-2018
-#Last editor: Tony Sanchez
+#Last edited: 11-17-2018
+#Last editor: Troy Maloney
 #Description:
-#This function generates FAKED data in the same format that's used in Plot.py
-#use this f(x) gen to check the accuracy of your algorithms agaist functions 
+#This function generates a table of FAKED data.
+#Use this f(x) gen to check the accuracy of your algorithms agaist functions 
 #that can be easily verrified.
 # 
-#The API returns real data in the format :
-#symbol,open,high,low,price,volume,latestDay,previousClose,change,changePercent
-#getStock.py adds a date-time stamp at the end of our real data
+#The fake data file this script generates can be used with StockDataset.
 #
-#This appends a value of x at the end that DOES NOT appear in real data
+#Returns data in the following format:
+#   symbol,price,callTime
+#   FAKE,999,H:M:S
 #############################################################################
 
 
@@ -48,20 +48,16 @@ for x in range(1000):
      Dates.append(date)
      Prices.append(price) 
 
-     out.write('FAKE,'+str(price)+','+str(date)+'\n')
+     out.write('FAKE,'+str(price)+','+str(date)+'\n') # write line to file
      
-#     out.write("symbl,open,high,low, ")
-#     out.write(str(price)+", vol,Day,prevCls,diff,diff%, ")
-#     out.write(str(date)+", ")
-#     out.write(str(x)+ "\n") # for trace tables
 ## plot
-#plt.plot([],[])
-#plt.scatter(Dates,Prices,s=8)
-## beautify the x-labels
-#plt.gcf().autofmt_xdate()
+plt.plot([],[])
+plt.scatter(Dates,Prices,s=8)
+# beautify the x-labels
+plt.gcf().autofmt_xdate()
 
 ## For Troy's Raspberry Pi
-plt.plot(Prices)
+#plt.plot(Prices)
 
 ##print (Dates)
 ##print (Prices)
